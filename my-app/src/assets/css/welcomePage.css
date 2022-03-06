@@ -1,0 +1,49 @@
+* {
+  font-family: "Montserrat";
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.container-welcome-page {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.container-left-part {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 40em;
+  width: 40em;
+  background-image: url("../imgs/welcome-page-background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.welcome {
+  margin: 0;
+  font-size: 2.7em;
+}
+
+.account-text {
+  margin-top: 4em;
+  margin-bottom: 4em;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.container-right-part {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 40em;
+  width: 40em;
+}
