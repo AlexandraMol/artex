@@ -1,5 +1,12 @@
+import "../assets/css/landingPage.module.css";
+import Navbar from "./Navbar/index";
+
 const LandingPage = () => {
-  return <>hi</>;
+  return (
+    <>
+      <Navbar />
+    </>
+  );
 };
 
 export default LandingPage;
