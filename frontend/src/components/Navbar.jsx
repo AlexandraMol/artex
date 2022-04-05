@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../assets/css/Navbar.css";
-import { FaSearch, FaUser, FaSignOutAlt } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -10,11 +11,11 @@ const Navbar = () => {
         <FaSearch />
       </span>
       <div className={`nav-items ${isOpen && "open"}`}>
-        <a href="/home">Article Analysis</a>
-        <a href="/about">View Articles</a>
-        <a href="/service">My Articles</a>
-        <a href="/contact">Profile</a>
-        <a href="/logout">Logout</a>
+        <a href="/article-analysis">Article Analysis</a>
+        <a href="/articles">View Articles</a>
+        <a href="/my-articles">My Articles</a>
+        <a href="/profile">Profile</a>
+        <a href="/">Logout</a>
       </div>
       <div
         className={`nav-toggle ${isOpen && "open"}`}

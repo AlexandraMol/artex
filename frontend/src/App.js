@@ -4,10 +4,11 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 
-//components import start
+//pages import start
 import WelcomePage from "./pages/WelcomePage";
 import SignIn from "./pages/SignIn";
 import LandingPage from "./pages/LandingPage";
+import Profile from "./pages/Profile";
 //ending
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/main" element={<LandingPage />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );
