@@ -32,13 +32,13 @@ const Profile = () => {
     return (
       <div>
         <Button
-          label="No"
+          label="Cancel"
           icon="pi pi-times"
           onClick={() => onHide(name)}
           className="p-button-text"
         />
         <Button
-          label="Yes"
+          label="Submit"
           icon="pi pi-check"
           onClick={() => onHide(name)}
           autoFocus
@@ -81,22 +81,26 @@ const Profile = () => {
                 onClick={() => onClick("displayBasic")}
               />
               <Dialog
-                header="Header"
+                header="Data Form"
                 visible={displayBasic}
-                style={{ width: "50vw" }}
+                style={{ width: "50vh" }}
                 footer={renderFooter("displayBasic")}
                 onHide={() => onHide("displayBasic")}
               >
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                </p>
+                <div className={styles.formUpdate}>
+                  <span className="p-float-label">
+                    <InputText
+                      id="in"
+                      className="p-inputtext"
+                      value={"test@gmail.com"}
+                    />
+                    <label htmlFor="in">Reset Email</label>
+                  </span>
+                  <span className="p-float-label">
+                    <InputText id="in" className="p-inputtext" />
+                    <label htmlFor="in">Reset Password</label>
+                  </span>
+                </div>
               </Dialog>
             </div>
           </div>
