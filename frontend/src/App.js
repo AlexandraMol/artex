@@ -9,6 +9,9 @@ import WelcomePage from "./pages/WelcomePage";
 import SignIn from "./pages/SignIn";
 import LandingPage from "./pages/LandingPage";
 import Profile from "./pages/Profile";
+import MyArticles from "./pages/MyArticles";
+import ViewArticles from "./pages/ViewArticles";
+import ArticleAnalysis from "./pages/ArticleAnalysis";
 //ending
 
 function App() {
@@ -19,6 +22,9 @@ function App() {
         <Route path="/login" element={<SignIn />} />
         <Route path="/main" element={<LandingPage />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/article-analysis" element={<ArticleAnalysis />} />
+        <Route path="/articles" element={<ViewArticles />} />
+        <Route path="/my-articles" element={<MyArticles />} />
       </Routes>
     </BrowserRouter>
   );
