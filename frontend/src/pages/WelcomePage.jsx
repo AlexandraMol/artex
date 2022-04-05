@@ -69,7 +69,7 @@ const WelcomePage = () => {
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
-                  style={{ paddingRight: "2.5rem" }}
+                  className="p-inputtext"
                 />
                 <label htmlFor="in">Email</label>
               </span>
@@ -79,7 +79,7 @@ const WelcomePage = () => {
                   onChange={(e) => {
                     setUserName(e.target.value);
                   }}
-                  style={{ paddingRight: "2.5rem" }}
+                  className="p-inputtext"
                 />
                 <label htmlFor="in">Username</label>
               </span>

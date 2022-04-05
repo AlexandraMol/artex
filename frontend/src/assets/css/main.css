@@ -18,3 +18,7 @@ body {
   justify-content: center;
   min-height: 100vh;
 }
+
+.p-inputtext {
+  padding-right: 2.5rem;
+}
