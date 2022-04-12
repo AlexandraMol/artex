@@ -26,7 +26,7 @@ const WelcomePage = () => {
       toast.error("Confirm Password can't be blank");
     } else {
       console.log("Totul e ok");
-      navigate("/login");
+      navigate("/articles");
     }
   };
 

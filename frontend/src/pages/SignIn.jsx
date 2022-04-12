@@ -18,7 +18,7 @@ const SignIn = () => {
       toast.error("Password can't be blank");
     } else {
       console.log("Totul e ok");
-      navigate("/main");
+      navigate("/articles");
     }
   };
 

@@ -7,7 +7,6 @@ import "primeicons/primeicons.css";
 //pages import start
 import WelcomePage from "./pages/WelcomePage";
 import SignIn from "./pages/SignIn";
-import LandingPage from "./pages/LandingPage";
 import Profile from "./pages/Profile";
 import MyArticles from "./pages/MyArticles";
 import ViewArticles from "./pages/ViewArticles";
@@ -20,7 +19,6 @@ function App() {
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<SignIn />} />
-        <Route path="/main" element={<LandingPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/article-analysis" element={<ArticleAnalysis />} />
         <Route path="/articles" element={<ViewArticles />} />

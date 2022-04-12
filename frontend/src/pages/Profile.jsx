@@ -93,8 +93,9 @@ const Profile = () => {
                       id="in"
                       className="p-inputtext"
                       value={"test@gmail.com"}
+                      readOnly="true"
                     />
-                    <label htmlFor="in">Reset Email</label>
+                    <label htmlFor="in">Email</label>
                   </span>
                   <span className="p-float-label">
                     <InputText id="in" className="p-inputtext" />
