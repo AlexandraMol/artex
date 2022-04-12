@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../assets/css/Navbar.css";
+import "./Navbar.css";
 import { FaSearch } from "react-icons/fa";
 
 const Navbar = () => {
@@ -11,7 +11,7 @@ const Navbar = () => {
         <FaSearch />
       </span>
       <div className={`nav-items ${isOpen && "open"}`}>
-        <a href="/article-analysis">Article Analysis</a>
+        <a href="/article-analysis">Analyze Article</a>
         <a href="/articles">View Articles</a>
         <a href="/my-articles">My Articles</a>
         <a href="/profile">Profile</a>

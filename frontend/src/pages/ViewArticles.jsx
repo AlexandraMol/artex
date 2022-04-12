@@ -3,7 +3,7 @@ const ViewArticles = () => {
   return (
     <>
       <Navbar />
-      <p>hi!</p>
+      <p>hellou!</p>
     </>
   );
 };
