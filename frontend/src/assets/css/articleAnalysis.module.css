@@ -15,3 +15,26 @@
   width: 80%;
   background-color: #ebf0f1;
 }
+
+.analyzeFormContainer {
+  width: 80vh;
+  height: 60vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.titleAndType {
+  display: flex;
+  width: 80vh;
+  justify-content: space-between;
+}
+
+.buttonsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  gap: 1em;
+}
