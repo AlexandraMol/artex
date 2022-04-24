@@ -7,12 +7,17 @@ import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router";
+import Axios from "axios";
+
+const SERVER_URL = "http://localhost:5000/";
+
 const WelcomePage = () => {
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+
   const postRegister = async () => {
     if (password !== confirmPassword) {
       toast.error("Password doesn't match with Confirm Password");
@@ -25,8 +30,19 @@ const WelcomePage = () => {
     } else if (confirmPassword === "") {
       toast.error("Confirm Password can't be blank");
     } else {
-      console.log("Totul e ok");
-      navigate("/articles");
+      Axios.post(`${SERVER_URL}/register`, {
+        username: userName,
+        email: email,
+        password: password,
+      }).then((res) => {
+        if (res.status === 200) {
+          navigate("/articles");
+        } else if (res.status === 409) {
+          toast.error("User already exists.");
+        } else if (res.status === 404) {
+          toast.error("User doesn't exists.");
+        }
+      });
     }
   };
 

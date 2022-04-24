@@ -6,6 +6,10 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { useNavigate } from "react-router";
+import Axios from "axios";
+
+const SERVER_URL = "http://localhost:5000/";
+
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,8 +21,18 @@ const SignIn = () => {
     } else if (password === "") {
       toast.error("Password can't be blank");
     } else {
-      console.log("Totul e ok");
-      navigate("/articles");
+      Axios.post(`${SERVER_URL}/login`, {
+        email: email,
+        password: password,
+      }).then((res) => {
+        if (res.status === 200) {
+          navigate("/articles");
+        } else if (res.status === 404) {
+          toast.error("User doesn't exist.");
+        } else if (res.status === 401) {
+          toast.error("Password is not corect");
+        }
+      });
     }
   };
 
