@@ -14,7 +14,7 @@
   color: #ffffff;
 }
 
-.Navbar > .nav-items > a {
+.Navbar > .nav-items > span {
   position: fixed;
   top: 0;
   color: #ffffff;
@@ -23,13 +23,14 @@
   margin: 15px;
   position: relative;
   opacity: 0.9;
+  cursor: pointer;
 }
 
-.Navbar > .nav-items > a:hover {
+.Navbar > .nav-items > span:hover {
   opacity: 1;
 }
 
-.Navbar > .nav-items > a::before {
+.Navbar > .nav-items > span::before {
   content: "";
   position: absolute;
   left: 0;
@@ -41,7 +42,7 @@
   margin-top: 40px;
 }
 
-.Navbar > .nav-items > a:hover::before {
+.Navbar > .nav-items > span:hover::before {
   width: 100%;
 }
 
@@ -64,7 +65,7 @@
     margin-top: 40px;
   }
 
-  .Navbar > .nav-items > a::before {
+  .Navbar > .nav-items > span::before {
     background: transparent;
   }
 

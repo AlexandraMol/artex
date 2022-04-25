@@ -9,6 +9,13 @@ from models import db, User
 # $export FLASK_APP=server.py sau set FLASK_APP in cmd...
 # flask run
 
+def format_user(user):
+    return {
+        "id": user.id,
+        "username": user.username,
+        "email": user.email,
+    }
+
 app = Flask(__name__)
 app.config.from_object(ApplicationConfig)
 
@@ -19,12 +26,6 @@ db.init_app(app)
 
 with app.app_context():
     db.create_all()
-
-@app.route("/test")
-def home():
-    return jsonify({"id": 1,"email": 2})
-
-
 
 @app.route("/@me")
 def get_current_user():
@@ -85,6 +86,58 @@ def login_user():
 def logout_user():
     session.pop("user_id")
     return "200"
+
+
+@app.route("/users", methods=["GET"])
+def get_users():
+    
+    users=User.query.all() 
+    
+    if users is None:
+        return jsonify({"error": "Users not found"}), 404
+    
+    
+    users_list=[]
+    
+    for user in users:
+        users_list.append(format_user(user))
+   
+    
+    print(users_list)
+    
+    return jsonify({"users":users_list}),200
+    
+
+
+# Profile Page Routes
+
+@app.route('/profile/<email>',methods=['GET'])
+def get_profile(email):     
+    
+    user=User.query.filter_by(email=email).first()
+    
+    if user is None:
+        return jsonify({"error": "Unauthorized"}), 404
+    
+    return jsonify({"username":user.username,"email":user.email}),200
+    
+
+@app.route('/profile/<email>',methods=['GET','PUT'])
+def update_profile(email):
+    
+    password=request.json["password"]
+    
+    user=User.query.filter_by(email=email).first()
+    
+    if user is None:
+        return jsonify({"error": "Unauthorized"}), 404
+    
+    user.password= bcrypt.generate_password_hash(password)
+    db.session.commit()   
+    
+    return jsonify({
+       "message": "Profile updated"
+    })
 
 if __name__ == "__main__":
     app.run(debug=True)

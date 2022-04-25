@@ -6,7 +6,12 @@ import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { MultiSelect } from "primereact/multiselect";
 import { useNavigate } from "react-router";
+import { useLocation } from "react-router-dom";
+
 const ArticleAnalysis = () => {
+  const loc = useLocation();
+  console.log(loc);
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
@@ -27,7 +32,7 @@ const ArticleAnalysis = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar data={loc} />
       <div className={styles.wrapperContainerAnalyzer}>
         <div className={styles.containerAnalyzer}>
           <div className={styles.analyzeForm}>

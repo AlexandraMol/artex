@@ -26,7 +26,7 @@ const SignIn = () => {
         password: password,
       }).then((res) => {
         if (res.status === 200) {
-          navigate("/articles");
+          navigate("/articles", { state: { email: email } });
         } else if (res.status === 404) {
           toast.error("User doesn't exist.");
         } else if (res.status === 401) {

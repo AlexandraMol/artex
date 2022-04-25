@@ -15,6 +15,15 @@ class User(db.Model):
     
     articles=db.relationship("Article",backref="user")
 
+    def __init__(self,username,email,password):
+        self.username = username
+        self.email = email
+        self.password = password
+
+
+
+
+
 
 class Article(db.Model):
     __tablename__ = 'article'
@@ -26,6 +35,12 @@ class Article(db.Model):
     
     analyses=db.relationship("Analysis",backref="article")
 
+    def __init__(self,content,title):
+        self.content = content
+        self.title = title
+        
+
+
 class Analysis(db.Model):
     __tablename__= 'analysis'
     id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
@@ -33,5 +48,8 @@ class Analysis(db.Model):
     content = db.Column(db.Text, nullable=False)
     type_of_analysis=db.Column(db.Integer,nullable=False)
     
+    def __init__(self,content,type_of_analysis):
+        self.content = content
+        self.type_of_analysis = type_of_analysis
 
-
+   

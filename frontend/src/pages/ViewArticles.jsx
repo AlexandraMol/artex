@@ -1,9 +1,13 @@
 import Navbar from "../components/Navbar";
+import { useLocation } from "react-router-dom";
+
 const ViewArticles = () => {
+  const loc = useLocation();
+  console.log(loc);
   return (
     <>
-      <Navbar />
-      <p>hellou!</p>
+      <Navbar data={loc} />
+      <p>hellou!!</p>
     </>
   );
 };

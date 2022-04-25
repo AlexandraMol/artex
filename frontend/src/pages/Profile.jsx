@@ -4,13 +4,43 @@ import "../assets/css/main.css";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Dialog } from "primereact/dialog";
-import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { Password } from "primereact/password";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import Axios from "axios";
+
+const SERVER_URL = "http://localhost:5000/";
 
 const Profile = () => {
-  const [displayBasic, setDisplayBasic] = useState(false);
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
+  const [displayBasic, setDisplayBasic] = useState(false);
   const [position, setPosition] = useState("center");
+
+  const loc = useLocation();
+  console.log(loc);
+
+  const getProfileData = async () => {
+    Axios.get(`${SERVER_URL}/profile/${loc.state.email}`, {}).then((res) => {
+      setEmail(res.data.email);
+      setUsername(res.data.username);
+    });
+  };
+
+  const changePassword = async (name) => {
+    onHide(name);
+    Axios.put(`${SERVER_URL}/profile/${email}`, {
+      password: password,
+    }).then((res) => {
+      console.log(res);
+    });
+  };
+
+  useEffect(() => {
+    getProfileData();
+  }, []);
 
   const dialogFuncMap = {
     displayBasic: setDisplayBasic,
@@ -40,7 +70,7 @@ const Profile = () => {
         <Button
           label="Submit"
           icon="pi pi-check"
-          onClick={() => onHide(name)}
+          onClick={() => changePassword(name)}
           autoFocus
         />
       </div>
@@ -49,7 +79,7 @@ const Profile = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar data={loc} />
 
       <div className={styles.containerProfile}>
         <div className={styles.containerLeftPart}>
@@ -60,7 +90,7 @@ const Profile = () => {
                 <InputText
                   id="in"
                   readOnly={true}
-                  value={"test@gmail.com"}
+                  value={email}
                   className="p-inputtext"
                 />
                 <label htmlFor="in">Email</label>
@@ -69,7 +99,7 @@ const Profile = () => {
                 <InputText
                   id="in"
                   readOnly={true}
-                  value={"test"}
+                  value={username}
                   className="p-inputtext"
                 />
                 <label htmlFor="in">Username</label>
@@ -92,13 +122,19 @@ const Profile = () => {
                     <InputText
                       id="in"
                       className="p-inputtext"
-                      value={"test@gmail.com"}
-                      readOnly="true"
+                      value={email}
+                      readOnly={true}
                     />
                     <label htmlFor="in">Email</label>
                   </span>
                   <span className="p-float-label">
-                    <InputText id="in" className="p-inputtext" />
+                    <Password
+                      toggleMask
+                      id="in"
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                    />
                     <label htmlFor="in">Reset Password</label>
                   </span>
                 </div>

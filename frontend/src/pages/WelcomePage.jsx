@@ -36,7 +36,7 @@ const WelcomePage = () => {
         password: password,
       }).then((res) => {
         if (res.status === 200) {
-          navigate("/articles");
+          navigate("/articles", { state: { email: email } });
         } else if (res.status === 409) {
           toast.error("User already exists.");
         } else if (res.status === 404) {
