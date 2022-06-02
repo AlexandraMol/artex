@@ -3,7 +3,7 @@ from flask_bcrypt import Bcrypt
 from flask_cors import CORS, cross_origin
 from flask_session import Session
 from config import ApplicationConfig
-from models import db, User
+from models import db, User, Article, Analysis
 
 #CUM SE DESCHIDE cu terminal bash
 # $export FLASK_APP=server.py sau set FLASK_APP in cmd...
@@ -14,6 +14,15 @@ def format_user(user):
         "id": user.id,
         "username": user.username,
         "email": user.email,
+    }
+    
+    
+def format_article(article):
+    return{
+       "id": article.id, 
+       "user_id":article.user_id,
+       "content": article.content,
+       "title": article.title,
     }
 
 app = Flask(__name__)
@@ -39,6 +48,8 @@ def get_current_user():
         "id": user.id,
         "email": user.email
     }) 
+
+# Login + Register Routes
 
 @app.route("/register", methods=["POST"])
 def register_user():
@@ -87,6 +98,9 @@ def logout_user():
     session.pop("user_id")
     return "200"
 
+# End of Login + Register Routes
+
+# Users Routes
 
 @app.route("/users", methods=["GET"])
 def get_users():
@@ -106,7 +120,8 @@ def get_users():
     print(users_list)
     
     return jsonify({"users":users_list}),200
-    
+
+# End of Users Routes
 
 
 # Profile Page Routes
@@ -137,6 +152,75 @@ def update_profile(email):
     
     return jsonify({
        "message": "Profile updated"
+    })
+
+
+# End of Profile Page Routes
+
+# View Articles Routes
+
+# 1. Se pot vedea toate articolele de la alti utilizatori
+# -> ruta de get pentru toate articolele utilizatorilor + paginare
+# 2. Se pot vedea si analizele articolelor
+
+# -> ruta de get pentru analize
+
+
+@app.route("/articles", methods=["GET"])
+def get_articles():
+    
+    articles=Article.query.all() 
+    
+    if articles is None:
+        return jsonify({"error": "Articles not found"}), 404
+    
+    
+    articles_list=[]
+    
+    for article in articles:
+        articles_list.append(format_article(article))
+   
+    
+    print(articles_list)
+    
+    return jsonify({"articles":articles_list}),200
+
+@app.route("/article/<email>",methods=['GET'])
+def get_article(email):
+    
+    user=User.query.filter_by(email=email).first()
+    
+    if user is None:
+        return jsonify({"error": "No articles for this user"}), 404
+    
+    article=Article.query.filter_by(user_id=user.id).first()
+
+    if article is None:
+        return jsonify({"error": "Article not found"}), 404
+    
+    return jsonify({"id": article.id,
+        "user_id": article.user_id,
+        "content": article.content,
+        "title": article.title}),200
+
+
+@app.route("/article/<email>", methods=['GET',"POST"])
+def add_article(email):
+    
+    user=User.query.filter_by(email=email).first()
+    user_id=user.id
+    content = request.json["content"]
+    title = request.json["title"]
+
+    new_article = Article(user_id=user_id, content=content, title=title)
+    db.session.add(new_article)
+    db.session.commit()
+    
+    return jsonify({
+        "id": new_article.id,
+        "user_id": new_article.user_id,
+        "content": new_article.content,
+        "title": new_article.title
     })
 
 if __name__ == "__main__":

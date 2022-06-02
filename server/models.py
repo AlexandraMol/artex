@@ -35,7 +35,8 @@ class Article(db.Model):
     
     analyses=db.relationship("Analysis",backref="article")
 
-    def __init__(self,content,title):
+    def __init__(self,user_id,content,title):
+        self.user_id = user_id
         self.content = content
         self.title = title
         

@@ -14,6 +14,7 @@ const ArticleAnalysis = () => {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [typeOfAnalysis, setTypeOfAnalysis] = useState(0);
   const navigate = useNavigate();
   const [selectedAnalysis, setAnalysis] = useState(null);
 
