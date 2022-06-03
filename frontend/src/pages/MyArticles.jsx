@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import { Card } from "primereact/card";
+import ArticleCard from "../components/ArticleCard";
 import { Button } from "primereact/button";
 import { useLocation, useParams } from "react-router-dom";
 import { useNavigate } from "react-router";
@@ -10,59 +10,28 @@ const SERVER_URL = "http://localhost:5000/";
 
 const MyArticles = () => {
   const [userId, setUserId] = useState("");
+  const [articles, setArticles] = useState([]);
   const loc = useLocation();
   console.log(loc.state.email);
   const navigate = useNavigate();
+
   const getUserId = () => {
     Axios.get(`${SERVER_URL}/profile/${loc.state.email}`).then((response) => {
       setUserId(response.data.id);
     });
   };
 
+  const getArticles = () => {
+    Axios.get(`${SERVER_URL}/articles/${loc.state.email}`).then((response) => {
+      setArticles(response.data.articles);
+      console.log(response.data.articles);
+    });
+  };
   useEffect(() => {
     getUserId();
+    getArticles();
   }, []);
 
-  const header = (
-    <div
-      alt="Card"
-      style={{
-        backgroundImage: "url('https://i.imgur.com/Rodf2QI.png')",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        height: "300px",
-        width: "400px",
-      }}
-      onError={(e) =>
-        (e.target.src =
-          "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-      }
-    />
-  );
-  const footer = (
-    <span style={{ display: "flex", justifyContent: "center" }}>
-      <Button
-        label="View Article"
-        icon="pi pi-search"
-        style={{
-          fontSize: "14px",
-          marginRight: "10px",
-          width: "200px",
-          position: "initial",
-        }}
-      />
-      <Button
-        label="Generate Analysis"
-        icon="pi pi-plus"
-        style={{
-          fontSize: "14px",
-          marginLeft: "10px",
-          width: "200px",
-          position: "initial",
-        }}
-      />
-    </span>
-  );
   return (
     <>
       <Navbar data={loc} />
@@ -71,6 +40,7 @@ const MyArticles = () => {
         icon="pi pi-plus"
         style={{
           fontSize: "16px",
+          position: "initial",
           margin: "10px 10px 10px 5px ",
           padding: "20px",
           borderRadius: "30px",
@@ -80,20 +50,21 @@ const MyArticles = () => {
           navigate(`/new-article/${userId}`);
         }}
       />
-      <Card
-        title="Advanced Card"
-        subTitle="Subtitle"
-        style={{ width: "400px" }}
-        footer={footer}
-        header={header}
+
+      <div
+        className="articleList"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "auto auto auto",
+          justifyContent: "center",
+          columnGap: "50px",
+          rowGap: "50px",
+        }}
       >
-        <p className="m-0" style={{ lineHeight: "1.5" }}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
-          sed consequuntur error repudiandae numquam deserunt quisquam repellat
-          libero asperiores earum nam nobis, culpa ratione quam perferendis
-          esse, cupiditate neque quas!
-        </p>
-      </Card>
+        {articles.map((e) => (
+          <ArticleCard key={e.id} item={e} />
+        ))}
+      </div>
     </>
   );
 };

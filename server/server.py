@@ -201,6 +201,29 @@ def get_articles():
     
     return jsonify({"articles":articles_list}),200
 
+
+#get articles/email
+
+@app.route("/articles/<email>", methods=["GET"])
+def get_user_articles(email):
+    
+    user=User.query.filter_by(email=email).first()
+
+    if user is None:
+        return jsonify({"error": "No articles for this user"}), 404
+    
+    
+    articles=Article.query.filter_by(user_id=email)
+    
+    articles_list=[]
+    
+    for article in articles:
+        articles_list.append(format_article(article))
+    
+    print(articles_list)
+    
+    return jsonify({"articles":articles_list}),200
+
 @app.route("/article/<email>",methods=['GET'])
 def get_article(email):
     
@@ -223,12 +246,10 @@ def get_article(email):
 @app.route("/article/<email>", methods=['GET',"POST"])
 def add_article(email):
     
-    user=User.query.filter_by(email=email).first()
-    user_id=user.id
     content = request.json["content"]
     title = request.json["title"]
 
-    new_article = Article(user_id=user_id, content=content, title=title)
+    new_article = Article(user_id=email, content=content, title=title)
     db.session.add(new_article)
     db.session.commit()
     

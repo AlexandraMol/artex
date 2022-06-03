@@ -28,7 +28,7 @@ class User(db.Model):
 class Article(db.Model):
     __tablename__ = 'article'
     id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
-    user_id= db.Column(db.String(32),db.ForeignKey('user.id'))
+    user_id= db.Column(db.String(345),db.ForeignKey('user.email'))
     content = db.Column(db.Text, nullable=False)
     title=db.Column(db.String(100), nullable=False)
 
