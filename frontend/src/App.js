@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import MyArticles from "./pages/MyArticles";
 import ViewArticles from "./pages/ViewArticles";
 import ArticleAnalysis from "./pages/ArticleAnalysis";
+import NewArticle from "./pages/NewArticle";
 //ending
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/article-analysis" element={<ArticleAnalysis />} />
         <Route path="/articles" element={<ViewArticles />} />
         <Route path="/my-articles" element={<MyArticles />} />
+        <Route path="/new-article/:id" element={<NewArticle />} />
       </Routes>
     </BrowserRouter>
   );

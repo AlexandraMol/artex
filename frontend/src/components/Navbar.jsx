@@ -23,7 +23,7 @@ const Navbar = (props) => {
         <FaSearch />
       </span>
       <div className={`nav-items ${isOpen && "open"}`}>
-        <span
+        {/* <span
           onClick={() => {
             navigate("/article-analysis", {
               state: { email: props.data.state.email },
@@ -31,7 +31,7 @@ const Navbar = (props) => {
           }}
         >
           Analyze Article
-        </span>
+        </span> */}
         <span
           onClick={() => {
             navigate("/articles", { state: { email: props.data.state.email } });

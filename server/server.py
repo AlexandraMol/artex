@@ -134,7 +134,7 @@ def get_profile(email):
     if user is None:
         return jsonify({"error": "Unauthorized"}), 404
     
-    return jsonify({"username":user.username,"email":user.email}),200
+    return jsonify({"id":user.id, "username":user.username,"email":user.email}),200
     
 
 @app.route('/profile/<email>',methods=['GET','PUT'])
@@ -164,6 +164,11 @@ def update_profile(email):
 # 2. Se pot vedea si analizele articolelor
 
 # -> ruta de get pentru analize
+# analiza pe baza de articol -> post analiza, get analiza
+
+
+@app.route("/analysis", methods=['GET',"POST"])
+
 
 
 @app.route("/articles", methods=["GET"])
