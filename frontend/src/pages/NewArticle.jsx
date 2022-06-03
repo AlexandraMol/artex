@@ -1,32 +1,64 @@
 import Navbar from "../components/Navbar";
 import styles from "../assets/css/articleAnalysis.module.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { useNavigate } from "react-router";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Axios from "axios";
 
+const SERVER_URL = "http://localhost:5000/";
 const NewArticle = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [email, setEmail] = useState("");
+  const loc = useLocation();
+  console.log(loc);
   let { id } = useParams();
   console.log(id);
   const navigate = useNavigate();
 
+  const getUserEmail = () => {
+    Axios.get(`${SERVER_URL}/userId/${id}`).then((response) => {
+      setEmail(response.data.email);
+      loc.state = { email: email };
+    });
+  };
+
+  useEffect(() => {
+    getUserEmail();
+  }, []);
+
   function cancel() {
-    navigate("/my-articles");
+    navigate("/my-articles", { state: { email: email } });
   }
 
   function submit() {
     //backend
-    navigate("/my-articles");
+    if (title === "" && content === "") {
+      toast.error("Title and Content can't be black");
+    } else if (title === "") {
+      toast.error("Title can't be blank");
+    } else if (content === "") {
+      toast.error("Content can't be blank");
+    } else {
+      Axios.post(`${SERVER_URL}/article/${email}`, {
+        content: content,
+        title: title,
+      });
+      navigate("/my-articles", { state: { email: email } });
+    }
   }
 
   return (
     <>
-      <Navbar />
-      <div className={styles.wrapperContainerAnalyzer}>
+      <div
+        className={styles.wrapperContainerAnalyzer}
+        style={{ height: "100vh" }}
+      >
         <div className={styles.containerAnalyzer}>
           <div className={styles.analyzeForm}>
             <div className={styles.analyzeFormContainer}>

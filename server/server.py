@@ -136,6 +136,17 @@ def get_profile(email):
     
     return jsonify({"id":user.id, "username":user.username,"email":user.email}),200
     
+@app.route('/userId/<id>',methods=['GET'])
+def get_userId(id):     
+    
+    user=User.query.filter_by(id=id).first()
+    
+    if user is None:
+        return jsonify({"error": "Unauthorized"}), 404
+    
+    return jsonify({"id":user.id, "username":user.username,"email":user.email}),200
+ 
+
 
 @app.route('/profile/<email>',methods=['GET','PUT'])
 def update_profile(email):
