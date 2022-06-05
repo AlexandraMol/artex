@@ -12,7 +12,7 @@ const MyArticles = () => {
   const [userId, setUserId] = useState("");
   const [articles, setArticles] = useState([]);
   const loc = useLocation();
-  console.log(loc.state.email);
+
   const navigate = useNavigate();
 
   const getUserId = () => {
@@ -24,9 +24,15 @@ const MyArticles = () => {
   const getArticles = () => {
     Axios.get(`${SERVER_URL}/articles/${loc.state.email}`).then((response) => {
       setArticles(response.data.articles);
-      console.log(response.data.articles);
     });
   };
+
+  function submit() {
+    navigate(`/new-article/${userId}`, {
+      state: { email: loc.state.email },
+    });
+  }
+
   useEffect(() => {
     getUserId();
     getArticles();
@@ -46,9 +52,7 @@ const MyArticles = () => {
           borderRadius: "30px",
           fontWeight: "bold",
         }}
-        onClick={() => {
-          navigate(`/new-article/${userId}`);
-        }}
+        onClick={submit}
       />
 
       <div

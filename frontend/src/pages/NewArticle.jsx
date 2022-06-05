@@ -15,12 +15,10 @@ const NewArticle = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [email, setEmail] = useState("");
-  const loc = useLocation();
-  console.log(loc);
-  let { id } = useParams();
-  console.log(id);
-  const navigate = useNavigate();
 
+  let { id } = useParams();
+  const navigate = useNavigate();
+  const loc = useLocation();
   const getUserEmail = () => {
     Axios.get(`${SERVER_URL}/userId/${id}`).then((response) => {
       setEmail(response.data.email);

@@ -12,6 +12,7 @@ import MyArticles from "./pages/MyArticles";
 import ViewArticles from "./pages/ViewArticles";
 import ArticleAnalysis from "./pages/ArticleAnalysis";
 import NewArticle from "./pages/NewArticle";
+import ViewArticleDetails from "./pages/ViewArticleDetails";
 //ending
 
 function App() {
@@ -21,10 +22,11 @@ function App() {
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/article-analysis" element={<ArticleAnalysis />} />
+        <Route path="/generate-analysis/:id" element={<ArticleAnalysis />} />
         <Route path="/articles" element={<ViewArticles />} />
         <Route path="/my-articles" element={<MyArticles />} />
         <Route path="/new-article/:id" element={<NewArticle />} />
+        <Route path="/article-details/:id" element={<ViewArticleDetails />} />
       </Routes>
     </BrowserRouter>
   );

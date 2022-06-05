@@ -1,17 +1,19 @@
 import Navbar from "../components/Navbar";
 import styles from "../assets/css/articleAnalysis.module.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { MultiSelect } from "primereact/multiselect";
 import { useNavigate } from "react-router";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import Axios from "axios";
+
+const SERVER_URL = "http://localhost:5000/";
 
 const ArticleAnalysis = () => {
   const loc = useLocation();
-  console.log(loc);
-
+  let { id } = useParams();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [typeOfAnalysis, setTypeOfAnalysis] = useState(0);
@@ -24,12 +26,28 @@ const ArticleAnalysis = () => {
   ];
 
   function cancelFunction() {
-    navigate("/articles");
+    navigate("/my-articles", {
+      state: { email: loc.state.email },
+    });
   }
 
   function submitFunction() {
-    // TODO importat modala si generat raportul plus adaugat functionalitatea de download as PDF
+    //ruta de add analiza
+    //partea de ML + get optiunile selectate
+    navigate(`/article-details/${id}`, {
+      state: { email: loc.state.email },
+    });
   }
+  const getArticleDetails = () => {
+    Axios.get(`${SERVER_URL}/article/${id}`).then((response) => {
+      setTitle(response.data.title);
+      setContent(response.data.content);
+    });
+  };
+
+  useEffect(() => {
+    getArticleDetails();
+  }, []);
 
   return (
     <>
@@ -41,12 +59,11 @@ const ArticleAnalysis = () => {
               <div className={styles.titleAndType}>
                 <span className="p-float-label">
                   <InputText
-                    style={{ width: "50vh" }}
+                    style={{ width: "50vh", textAlign: "justify" }}
                     id="in"
-                    onChange={(e) => {
-                      setTitle(e.target.value);
-                    }}
                     className="p-inputtext"
+                    readOnly={true}
+                    value={title}
                   />
                   <label htmlFor="in">Article title</label>
                 </span>
@@ -65,12 +82,16 @@ const ArticleAnalysis = () => {
 
               <span className="p-float-label">
                 <InputTextarea
-                  style={{ width: "80vh", height: "30vh", resize: "none" }}
-                  id="out"
-                  onChange={(e) => {
-                    setContent(e.target.value);
+                  style={{
+                    width: "80vh",
+                    height: "30vh",
+                    resize: "none",
+                    textAlign: "justify",
                   }}
+                  id="out"
                   className="p-inputtextarea"
+                  readOnly={true}
+                  value={content}
                 />
                 <label htmlFor="in">Article content</label>
               </span>

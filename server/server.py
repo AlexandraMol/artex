@@ -224,15 +224,10 @@ def get_user_articles(email):
     
     return jsonify({"articles":articles_list}),200
 
-@app.route("/article/<email>",methods=['GET'])
-def get_article(email):
-    
-    user=User.query.filter_by(email=email).first()
-    
-    if user is None:
-        return jsonify({"error": "No articles for this user"}), 404
-    
-    article=Article.query.filter_by(user_id=user.id).first()
+@app.route("/article/<id>",methods=['GET'])
+def get_article(id):
+ 
+    article=Article.query.filter_by(id=id).first()
 
     if article is None:
         return jsonify({"error": "Article not found"}), 404

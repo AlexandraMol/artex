@@ -1,8 +1,11 @@
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
+import { useNavigate } from "react-router";
+import { useLocation } from "react-router-dom";
 const ArticleCard = (props) => {
+  const navigate = useNavigate();
   const { item } = props;
-  console.log(item);
+  const loc = useLocation();
   const header = (
     <div
       alt="Card"
@@ -30,6 +33,11 @@ const ArticleCard = (props) => {
           width: "200px",
           position: "initial",
         }}
+        onClick={() =>
+          navigate(`/article-details/${item.id}`, {
+            state: { email: loc.state.email },
+          })
+        }
       />
       <Button
         label="Generate Analysis"
@@ -40,6 +48,11 @@ const ArticleCard = (props) => {
           width: "200px",
           position: "initial",
         }}
+        onClick={() =>
+          navigate(`/generate-analysis/${item.id}`, {
+            state: { email: loc.state.email },
+          })
+        }
       />
     </span>
   );
@@ -58,6 +71,7 @@ const ArticleCard = (props) => {
         footer={footer}
         header={header}
       >
+        {/* de vazut cum nu afectez contentul... afisare partiala fara a afecta  */}
         <p style={{ lineHeight: "1.5" }}>{item.content.substring(0, 200)}...</p>
       </Card>
     </>
