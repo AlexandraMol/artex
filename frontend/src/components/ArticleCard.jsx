@@ -4,7 +4,9 @@ import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
 const ArticleCard = (props) => {
   const navigate = useNavigate();
-  const { item } = props;
+  console.log(props);
+  const { item, visibility } = props;
+  console.log("Merge" + visibility);
   const loc = useLocation();
   const header = (
     <div
@@ -39,21 +41,25 @@ const ArticleCard = (props) => {
           })
         }
       />
-      <Button
-        label="Generate Analysis"
-        icon="pi pi-plus"
-        style={{
-          fontSize: "14px",
-          marginLeft: "10px",
-          width: "200px",
-          position: "initial",
-        }}
-        onClick={() =>
-          navigate(`/generate-analysis/${item.id}`, {
-            state: { email: loc.state.email },
-          })
-        }
-      />
+      {visibility ? (
+        <Button
+          label="Generate Analysis"
+          icon="pi pi-plus"
+          style={{
+            fontSize: "14px",
+            marginLeft: "10px",
+            width: "200px",
+            position: "initial",
+          }}
+          onClick={() =>
+            navigate(`/generate-analysis/${item.id}`, {
+              state: { email: loc.state.email },
+            })
+          }
+        />
+      ) : (
+        <p></p>
+      )}
     </span>
   );
   return (
@@ -72,7 +78,7 @@ const ArticleCard = (props) => {
         header={header}
       >
         {/* de vazut cum nu afectez contentul... afisare partiala fara a afecta  */}
-        <p style={{ lineHeight: "1.5" }}>{item.content.substring(0, 200)}...</p>
+        <p style={{ lineHeight: "1.5" }}>{item.content.substr(0, 200)}...</p>
       </Card>
     </>
   );

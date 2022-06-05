@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import ArticleCard from "../components/ArticleCard";
 import { Button } from "primereact/button";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router";
 import Axios from "axios";
 import { useState, useEffect } from "react";
@@ -29,7 +29,7 @@ const MyArticles = () => {
 
   function submit() {
     navigate(`/new-article/${userId}`, {
-      state: { email: loc.state.email },
+      state: loc.state.email,
     });
   }
 
@@ -66,7 +66,7 @@ const MyArticles = () => {
         }}
       >
         {articles.map((e) => (
-          <ArticleCard key={e.id} item={e} />
+          <ArticleCard key={e.id} visibility={true} item={e} />
         ))}
       </div>
     </>

@@ -15,10 +15,10 @@ const NewArticle = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [email, setEmail] = useState("");
-
   let { id } = useParams();
   const navigate = useNavigate();
   const loc = useLocation();
+  console.log(loc);
   const getUserEmail = () => {
     Axios.get(`${SERVER_URL}/userId/${id}`).then((response) => {
       setEmail(response.data.email);
@@ -53,10 +53,7 @@ const NewArticle = () => {
 
   return (
     <>
-      <div
-        className={styles.wrapperContainerAnalyzer}
-        style={{ height: "100vh" }}
-      >
+      <div className={styles.wrapperContainerAnalyzer}>
         <div className={styles.containerAnalyzer}>
           <div className={styles.analyzeForm}>
             <div className={styles.analyzeFormContainer}>

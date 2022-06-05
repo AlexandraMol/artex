@@ -202,6 +202,21 @@ def get_articles():
     return jsonify({"articles":articles_list}),200
 
 
+#get articles/email al altori users
+
+@app.route("/otherUsersArticles/<email>", methods=["GET"])
+def get_otherUsers_articles(email):
+    
+    articles = Article.query.filter(Article.user_id!=email).all()
+    print(articles)
+    articles_list=[]
+    
+    for article in articles:
+        articles_list.append(format_article(article))
+        
+    print(articles_list)
+    return jsonify({"articles":articles_list}),200
+
 #get articles/email
 
 @app.route("/articles/<email>", methods=["GET"])
@@ -220,7 +235,6 @@ def get_user_articles(email):
     for article in articles:
         articles_list.append(format_article(article))
     
-    print(articles_list)
     
     return jsonify({"articles":articles_list}),200
 
