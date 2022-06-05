@@ -1,3 +1,5 @@
+import Navbar from "../components/Navbar";
+import styles from "../assets/css/articleDetails.module.css";
 import { useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Axios from "axios";
@@ -24,10 +26,22 @@ const ViewArticleDetails = () => {
 
   return (
     <>
-      <h1>Article Details</h1>
-      <div>{title}</div>
-      <div>{content}</div>
-      <h1>Analizele articolului</h1>
+      <Navbar data={loc} />
+      <div className={styles.pageWrapper}>
+        <div className={styles.containerArticleDetails}>
+          <div className={styles.containerBar}></div>
+
+          <div className={styles.articleDetails}>
+            <div className={styles.articleTitle}>{title}</div>
+            <div className={styles.articleContent}>{content}</div>
+          </div>
+          <div className={styles.listOfAnalysis}>
+            {/* componenta de analiza */}
+            {/* <h2>Type of analysis</h2>
+            <h5>content</h5> */}
+          </div>
+        </div>
+      </div>
     </>
   );
 };

@@ -77,7 +77,6 @@ const ArticleCard = (props) => {
         footer={footer}
         header={header}
       >
-        {/* de vazut cum nu afectez contentul... afisare partiala fara a afecta  */}
         <p style={{ lineHeight: "1.5" }}>{item.content.substr(0, 200)}...</p>
       </Card>
     </>
